@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_053613) do
+ActiveRecord::Schema.define(version: 2020_11_11_150835) do
+
+  create_table "shifts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "day"
+    t.integer "kind"
+    t.index ["term_id"], name: "index_shifts_on_term_id"
+    t.index ["user_id"], name: "index_shifts_on_user_id"
+  end
+
+  create_table "terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -21,4 +39,6 @@ ActiveRecord::Schema.define(version: 2020_11_04_053613) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "shifts", "terms"
+  add_foreign_key "shifts", "users"
 end

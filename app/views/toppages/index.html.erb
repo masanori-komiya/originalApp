@@ -1,12 +1,15 @@
-<h1>shift request!</h1>
-<div class="center jumbotron">
-  <div class="btn-toolbar">
-    <div class="btn-group">
-      <%= link_to 'Sign up', signup_path, class: 'btn btn-lg btn-primary' %>
-  </div>
+<% if logged_in? %>
+  <p>ログイン完了：<%=current_user.name %></p>
+  <%= link_to '期間一覧', terms_path%>
+<% else %>
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">シフト希望日時提出用</h1>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+      <p>
+        <%= link_to 'Sign up', signup_path, class: 'btn btn-primary my-2' %>
+        <%= link_to 'Login', login_path, class: 'btn btn-primary my-2' %>
+      </p>
     </div>
-    <div class="btn-group">
-      <h1><a href="#" class="nav-link">Login</a></h1>
-    </div>
   </div>
-</div>
+<% end %>

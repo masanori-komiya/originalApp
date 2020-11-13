@@ -1,0 +1,26 @@
+<% @dw = ["日", "月", "火", "水", "木", "金", "土"] %>
+<% if @terms.any? %>
+<h1>期間一覧</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>期間</th>
+    </thead>
+    <tbody>
+      <% @terms.each do |term| %>
+        <tr>
+          <td><%= link_to term.id, term_shifts_path(term)%></td>
+          <td><%= term.start_date.strftime("%m月%d日(#{@dw[term.start_date.wday]})") %> ~ <%= term.end_date.strftime("%m月%d日(#{@dw[term.end_date.wday]})") %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div>
+    <%= paginate @terms %>    
+  </div>
+<% end %>
+<% if current_user.admin? %>
+  <%= link_to '期間新規作成', new_term_path, class: "btn btn-primary" %>
+<% end %>
